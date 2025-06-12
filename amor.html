@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tô todo apaixonado</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fad0c4, #a18cd1);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: #6d3b47;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 0;
+            width: 100%;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: #d23669;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+            margin-bottom: 2rem;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .love-letter {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+
+        .love-letter:hover {
+            transform: rotateY(10deg);
+        }
+
+        .love-letter::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px dashed #d23669;
+            border-radius: 15px;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .btn {
+            background-color: #d23669;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(210, 54, 105, 0.3);
+            font-weight: 600;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn:hover {
+            background-color: #a52d52;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(210, 54, 105, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .photo-frame {
+            width: 200px;
+            height: 200px;
+            border: 10px solid white;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            margin: 2rem auto;
+            position: relative;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #d23669;
+            position: absolute;
+            animation: floatText 15s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatText {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* Estilos do álbum de fotos */
+.photo-album {
+    width: 90%;
+    max-width: 600px;
+    min-width: 300px;
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    aspect-ratio: 4/3; /* Mantém proporção inicial */
+}
+
+.album-container {
+    display: flex;
+    transition: transform 0.5s ease;
+    height: 100%;
+}
+
+.album-slide {
+    min-width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.album-slide img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 15px;
+}
+
+.album-controls {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.album-btn {
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d23669;
+    transition: all 0.3s;
+}
+
+.album-btn:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: scale(1.1);
+}
+
+.album-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #d23669;
+    opacity: 0.5;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dot.active {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+    .photo-album {
+        width: 95%;
+        aspect-ratio: 3/4; /* Proporção mais vertical em telas menores */
+    }
+    
+    .album-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+    }
+    
+    .dot {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .photo-album {
+        aspect-ratio: 2/3; /* Proporção ainda mais vertical para celulares */
+    }
+}
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+        
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-container" id="hearts-container"></div>
+    
+    <header>
+        <h1>Eu te amo meu amor!</h1>
+    </header>
+    
+    <div class="container">
+        <div class="photo-frame">
+            <!-- Substitua pelo caminho da sua foto -->
+            <img src="foto carro.jpg" alt="nós">
+        </div>
+        
+        <div class="love-letter">
+            <h2>DE: Pitufo<br>PARA: Pitufina</h2>
+            <p>
+                Não posso ficar sem fazer um presente com minha marca né amor..
+            </p>
+            <p>
+                É indescritível o sentimento que eu tenho quando eu tô do seu lado, meu dia fica tão mais leve e incrível, eu amo sua companhia e nossos momentos juntos.
+            </p>
+            <p>
+                A gente brincando com a Ana, fazendo lutinha, fazendo janta enquanto escutamos música e você tentando me fazer dançar, as noites assistindo filmes que eu gosto e você assiste porque eu queria mesmo você achando um saco e só querendo dormir kkkkk.
+            </p>
+            <p>
+                Confesso que tá muito mais difícil escrever uma cartinha no computador pra você do que quando eu escrevo algo na whatsapp no calor do momento ou quando eu falo que eu te amo olhando no fundo do seu olho, porque agora eu tenho a pressão de que tenho que fazer algo bonitinho e não posso errar.
+            </p>
+            <p>
+                Eu te amo muito Giovana, muito mais do que algo que eu consigo colocar em um textinho igual tô fazendo agora kkkkk, mas de verdade. EU TE AMO TANTO
+            </p>
+            <p>
+                Amo seu sorriso, quando você dá risada, amo o jeito que você me olha, como se eu fosse muito precioso, isso me deixa muito feliz, eu amo seu jeito bobo e alegre que me deixa mais leve na hora que te vejo, Amo como você consegue ver minha cara e saber o que eu to pensando e como eu consigo me entender com você. Eu amo nossos momentos juntos deitados só olhando um pra cara do outro sem fazer nada. 
+            </p>
+
+            <p>
+                Com todo amor,
+                <br>
+                <span style="font-family: 'Dancing Script', cursive; font-size: 1.5rem;">Seu pitchuco</span>
+            </p>
+        </div>
+        
+        <button class="btn" id="surpresa-btn">OLHA A SURPRESAAA</button>
+        
+        <div id="surpresa" style="display: none; text-align: center;">
+            <h2 style="color: #d23669;">Olha nois</h2>
+            
+            <!-- Álbum de fotos -->
+            <div class="photo-album">
+                <div class="album-container" id="album-container">
+                    <div class="album-slide">
+                        <img src="foto engracada.jpg" alt="Nós 1">
+                    </div>
+                    <div class="album-slide">
+                        <img src="foto 1.jpg" alt="Nós 2">
+                    </div>
+                    <div class="album-slide">
+                        <img src="foto 2.jpg" alt="Nós 3">
+                    </div>
+                    <div class="album-slide">
+                        <img src="3.jpg" alt="Nós 3">
+                    </div>
+                    <div class="album-slide">
+                        <img src="4.jpg" alt="Nós 3">
+                    </div>
+                    <div class="album-slide">
+                        <img src="6.jpg" alt="Nós 3">
+                    </div>
+                    <div class="album-slide">
+                        <img src="7.jpg" alt="Nós 3">
+                    </div>
+                    <div class="album-slide">
+                        <img src="85.jpg" alt="Nós 3">
+                    </div>
+                    <div class="album-slide">
+                        <img src="final.jpg" alt="Nós 3">
+                    </div>
+                    <!-- Adicione mais fotos conforme necessário -->
+                </div>
+                
+                <div class="album-controls">
+                    <button class="album-btn" id="prev-btn">❮</button>
+                    <button class="album-btn" id="next-btn">❯</button>
+                </div>
+                
+                <div class="album-dots" id="album-dots">
+                    <!-- Os pontos serão gerados pelo JavaScript -->
+                </div>
+            </div>
+            
+            <p>Obrigado por fazer parte da minha vida.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Cria corações flutuantes
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts-container');
+            const colors = ['#ff9a9e', '#fad0c4', '#a18cd1', '#d23669', '#ff6b81'];
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.classList.add('heart');
+                
+                // Posição aleatória
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const size = Math.random() * 2 + 1;
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 10 + 5;
+                
+                heart.style.left = `${left}vw`;
+                heart.style.top = `${top}vh`;
+                heart.style.fontSize = `${size}rem`;
+                heart.style.animationDelay = `${delay}s`;
+                heart.style.animationDuration = `${duration}s`;
+                heart.style.opacity = Math.random() * 0.5 + 0.3;
+                
+                heartsContainer.appendChild(heart);
+            }
+        }
+        
+        // Cria textos flutuantes românticos
+        function createFloatingTexts() {
+            const container = document.querySelector('body');
+            const texts = [
+                "Amor", "Beijo", "❤️", "Eu Te amo", 
+                "🥺", "Amorrrr", "Minha Princesa", "Pitchuca"
+            ];
+            
+            setInterval(() => {
+                const text = document.createElement('div');
+                text.classList.add('floating-text');
+                text.textContent = texts[Math.floor(Math.random() * texts.length)];
+                
+                // Posição aleatória na parte inferior
+                const left = Math.random() * 90 + 5;
+                text.style.left = `${left}%`;
+                text.style.bottom = '0';
+                
+                // Duração e atraso aleatórios
+                const duration = Math.random() * 10 + 10;
+                text.style.animationDuration = `${duration}s`;
+                
+                container.appendChild(text);
+                
+                // Remove o elemento após a animação terminar
+                setTimeout(() => {
+                    text.remove();
+                }, duration * 1000);
+            }, 1500);
+        }
+        
+        // Controle do álbum de fotos
+        function setupAlbum() {
+            const albumContainer = document.getElementById('album-container');
+            const slides = document.querySelectorAll('.album-slide');
+            const dotsContainer = document.getElementById('album-dots');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            
+            let currentIndex = 0;
+            const totalSlides = slides.length;
+            
+            // Cria os pontos indicadores
+            slides.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+            
+            // Atualiza a posição do álbum
+            function updateAlbum() {
+                albumContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+                
+                // Atualiza os pontos ativos
+                document.querySelectorAll('.dot').forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            }
+            
+            // Vai para um slide específico
+            function goToSlide(index) {
+                currentIndex = index;
+                updateAlbum();
+            }
+            
+            // Slide anterior
+            function prevSlide() {
+                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                updateAlbum();
+            }
+            
+            // Próximo slide
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                updateAlbum();
+            }
+            
+            // Event listeners
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+            
+            // Opcional: Autoplay
+            let interval = setInterval(nextSlide, 5000);
+            
+            // Pausa autoplay quando o mouse está sobre o álbum
+            albumContainer.addEventListener('mouseenter', () => {
+                clearInterval(interval);
+            });
+            
+            albumContainer.addEventListener('mouseleave', () => {
+                interval = setInterval(nextSlide, 5000);
+            });
+        }
+        
+        // Botão de surpresa
+        document.getElementById('surpresa-btn').addEventListener('click', function() {
+            const surpresa = document.getElementById('surpresa');
+            const btn = this;
+            
+            if (surpresa.style.display === 'none') {
+                surpresa.style.display = 'block';
+                btn.textContent = 'Obrigado por existir!';
+                
+                // Animação de corações
+                for (let i = 0; i < 30; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.innerHTML = '🥺';
+                        heart.style.position = 'fixed';
+                        heart.style.left = `${Math.random() * 100}%`;
+                        heart.style.top = `${Math.random() * 100}%`;
+                        heart.style.fontSize = `${Math.random() * 3 + 1}rem`;
+                        heart.style.animation = `explode 1s forwards`;
+                        heart.style.zIndex = '1000';
+                        
+                        document.body.appendChild(heart);
+                        
+                        setTimeout(() => {
+                            heart.remove();
+                        }, 1000);
+                    }, i * 100);
+                }
+            } else {
+                surpresa.style.display = 'none';
+                btn.textContent = 'OLHA A SURPRESAAA';
+            }
+        });
+        
+        // Inicializa as animações
+        window.onload = function() {
+            createHearts();
+            createFloatingTexts();
+            setupAlbum();
+        };
+    </script>
+</body>
+</html>
